@@ -18,7 +18,7 @@
         <mkdir dir='${test.report.dir}'/>
     </target>
 
-    <target name='compile' depends="clean">
+    <target name='compile' depends="">
         <echo message='Compile the code'/>
         <javac destdir='${dist.dir}' source='8' target='8' includeantruntime="false" deprecation='false' debug='true' debuglevel="lines,vars,source"
                encoding='UTF-8'>
@@ -34,7 +34,7 @@
         </javac>
     </target>
 
-    <target name='compile_all' depends="clean">
+    <target name='compile_all' depends="">
         <echo message='Compile the code and the tests'/>
         <javac destdir='${dist.dir}' source='8' target='8' includeantruntime="false" deprecation='false' debug='true' debuglevel="lines,vars,source"
                encoding='UTF-8'>
@@ -44,7 +44,7 @@
             </src>
             <classpath>
                 <fileset dir='lib'>
-                    <include name='*.jar'/>
+                    <include name='**/*.jar'/>
                 </fileset>
             </classpath>
         </javac>
@@ -83,7 +83,7 @@
             </batchtest>
             <classpath>
                 <fileset dir='lib'>
-                    <include name='*.jar'/>
+                    <include name='**/*.jar'/>
                 </fileset>
                 <pathelement location="bin"/>
                 <pathelement location="src/main/resources"/>
