@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/jajuk/src/main/java/org/jajuk/Main.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.jajuk.Main"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-test"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="jajuk"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Djava.library.path=/usr/lib/jni:/opt/Jajuk/git/jajuk:/opt/Jajuk/git/jajuk/bin:/opt/Jajuk/git/lib/windows/x86:/opt/Jajuk/git/lib/lib64&#10;-XX:+HeapDumpOnOutOfMemoryError&#10;-DNotused=-verbose:gc&#10;-XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=80 -Xms128M -Xmx620M -XX:+UseCompressedOops&#10;-XX:+PerfBypassFileSystemCheck &#10;-Dnotused=-client&#10;-DNotused=-agentpath:/opt/dynaTrace/trunk/jloadtrace/agent/lib64/libdtagent.so=name=Jajuk_Jajuk,server=dstathink:9998"/>
+</launchConfiguration>
