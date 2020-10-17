@@ -16,7 +16,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *  
+ *
  */
 package org.jajuk.base;
 
@@ -142,7 +142,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test get rate null.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -188,18 +188,25 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test add file queue.
-   * 
+   *
    *
    * @throws Exception the exception
    */
   public final void testAddFileQueue() throws Exception {
+    // ensure no leftover thread is running
+    TestHelpers.waitForThreadToFinish("Queue Push Thread");
+
     Playlist play = getVoidPlaylistQueue();
+    assertTrue(play.getFiles().isEmpty());
+
     File file = TestHelpers.getFile("file1", false);
     System.out.println("QueueBefore: " + QueueModel.getQueue());
     assertEquals(0, QueueModel.getQueueSize());
     System.out.println("PlannedBefore: " + QueueModel.getPlanned());
     assertEquals(0, QueueModel.getPlanned().size());
     play.addFile(file);
+    assertEquals(0, play.getFiles().size());
+
     // wait a bit to let the "push" be done in a separate thread
     TestHelpers.waitForThreadToFinish("Queue Push Thread");
     assertEquals(1, QueueModel.getQueueSize());
@@ -305,7 +312,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test clear empty list.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -319,7 +326,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test clear queue.
-   * 
+   *
    */
   public final void testClearQueue() {
     Playlist play = getPlaylistQueue();
@@ -328,7 +335,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test clear bookmark.
-   * 
+   *
    */
   public final void testClearBookmark() {
     Playlist play = getPlaylistBookmark();
@@ -431,7 +438,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test down bookmark.
-   * 
+   *
    */
   public final void testDownBookmark() {
     Playlist play = getPlaylistBookmark();
@@ -450,8 +457,8 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test down queue.
-   * @throws JajukException 
-   * 
+   * @throws JajukException
+   *
    */
   public final void testDownQueue() throws JajukException {
     // 1 track
@@ -519,8 +526,8 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test get absolute path not normal.
-   * 
-   * @throws IOException 
+   *
+   * @throws IOException
    */
   public final void testGetAbsolutePathNotNormal() throws IOException {
     Playlist play = new Playlist(Playlist.Type.BESTOF, "1", "name", null);
@@ -555,7 +562,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test get files null.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -567,7 +574,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test get files novelities.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -581,7 +588,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test get files best of.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -593,7 +600,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test get files new.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -669,7 +676,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test play null.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -703,7 +710,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test remove bookmark.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -715,8 +722,8 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test remove queue.
-   * 
-   * @throws JajukException 
+   *
+   * @throws JajukException
    */
   public final void testRemoveQueue() throws JajukException {
     Playlist play = getPlaylistQueue();
@@ -741,7 +748,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test replace file bookmark.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -755,7 +762,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test replace file queue.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -808,7 +815,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test save as best of.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -830,7 +837,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test save as bookmark.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -847,7 +854,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test save as novelities.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -869,7 +876,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test save as queue.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -969,7 +976,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test get hits null.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -1003,7 +1010,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test get duration null.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -1033,7 +1040,7 @@ public class TestPlaylist extends JajukTestCase {
 
   /**
    * Test get nb of tracks null.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -1061,7 +1068,7 @@ public class TestPlaylist extends JajukTestCase {
     TestHelpers.getFile("file2", subDir, true, MockPlayer.class);
     // and a third in the playlist parent directory
     TestHelpers.getFile("file3", upDir, true, MockPlayer.class);
-    // Now, don't add the files using setFiles but create the playlist content instead 
+    // Now, don't add the files using setFiles but create the playlist content instead
     // and  load it. This way, we can write relative paths like ../dir
     String content = "file1\n" + "./file11\n" + "dir1/file2\n" + "../file3";
     Files.write(content, play.getFIO(), Charset.defaultCharset());

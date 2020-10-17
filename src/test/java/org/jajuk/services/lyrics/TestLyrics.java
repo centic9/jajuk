@@ -16,7 +16,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *  
+ *
  */
 package org.jajuk.services.lyrics;
 
@@ -86,8 +86,11 @@ public class TestLyrics extends JajukTestCase {
 
   /**
    * Test LyricsWikia provider response to get lyrics.
+   *
+   * Disabled as the lyrics-service seems to be gone
    */
-  public void testLyricsWikiaService() {
+  @SuppressWarnings("unused")
+  public void disabledTestLyricsWikiaService() {
     GenericWebLyricsProvider provider = new LyricsWikiaWebLyricsProvider();
     testWebService(provider);
   }
@@ -105,7 +108,7 @@ public class TestLyrics extends JajukTestCase {
   // helper method to emma-coverage of the unused constructor
   /**
    * Test private constructor.
-   * 
+   *
    *
    * @throws Exception the exception
    */
@@ -127,7 +130,7 @@ public class TestLyrics extends JajukTestCase {
   /**
    * Test provider web site url (shared code).
    *
-   * @param provider 
+   * @param provider
    * @throws IOException Signals that an I/O exception has occurred.
    */
   private void testWeb(GenericWebLyricsProvider provider) throws IOException {
@@ -146,7 +149,7 @@ public class TestLyrics extends JajukTestCase {
   /**
    * Test provider response to get lyrics (shared code).
    *
-   * @param provider 
+   * @param provider
    */
   private void testWebService(GenericWebLyricsProvider provider) {
     String lyrics = provider.getLyrics(ARTIST, TITLE);

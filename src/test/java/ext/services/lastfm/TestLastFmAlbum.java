@@ -57,7 +57,8 @@ public class TestLastFmAlbum extends TestCase {
    * Test get album playlist.
    *
    */
-  public void testGetAlbumPlaylist() {
+  @SuppressWarnings("unused")
+  public void disabledTestGetAlbumPlaylist() {
     Album a = Album.getInfo("Red Hot Chili Peppers", "By The Way", UtilString.rot13(API_KEY));
     assertNotNull(a);
     try { // may fail if internet is not available
