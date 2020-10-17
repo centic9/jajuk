@@ -374,6 +374,10 @@ public class SuggestionView extends ViewAdapter {
    * @throws Exception the exception
    */
   void preFetchSimilarArtists() throws Exception {
+    // usually we should not even get here with artist null, but we sometimes see this in the logs
+    if(artist == null) {
+      return;
+    }
     // Perform last.fm calls
     similar = LastFmService.getInstance().getSimilarArtists(artist);
     // artists is null for void (unknown) similar artists
