@@ -16,11 +16,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *  
+ *
  */
 package org.jajuk.ui.actions;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,13 +94,40 @@ public class DeleteSelectionAction extends SelectionAction {
     @Override
     public void run() {
       UtilGUI.waiting();
+
+      boolean makeWriteableCancelled = false;
+      boolean makeWriteableAll = false;
       for (File f : alFiles) {
         try {
-          Directory d = f.getDirectory();
-          UtilSystem.deleteFile(f.getFIO());
-          FileManager.getInstance().removeFile(f);
-          if (d.getFiles().size() == 0) {
-            emptyDirs.add(f.getDirectory());
+          try {
+            tryDelete(f);
+          } catch (Exception ioe) {
+            if (!makeWriteableCancelled && !f.getFIO().canWrite()) {
+              if (makeWriteableAll) {
+                if (!f.getFIO().setWritable(true)) {
+                  Log.warn("Could not make file " + f.getFIO().getAbsolutePath() + " writable");
+                }
+
+                tryDelete(f);
+              } else {
+                // Yes - No - Never - Always
+                int choice = Messages.getChoice("File {0} is write-protected, would you like to undo write-protection and still remove it?",
+                        Messages.YES_NO_ALL_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (choice == JOptionPane.CANCEL_OPTION) {
+                  makeWriteableCancelled = true;
+                } else if (choice == JOptionPane.YES_OPTION || choice == Messages.ALL_OPTION) {
+                  if (choice == Messages.ALL_OPTION) {
+                    makeWriteableAll = true;
+                  }
+
+                  if (!f.getFIO().setWritable(true)) {
+                    Log.warn("Could not make file " + f.getFIO().getAbsolutePath() + " writable");
+                  }
+
+                  tryDelete(f);
+                }
+              }
+            }
           }
         } catch (Exception ioe) {
           Log.error(131, ioe);
@@ -119,6 +147,15 @@ public class DeleteSelectionAction extends SelectionAction {
       }
       // requires device refresh
       ObservationManager.notify(new JajukEvent(JajukEvents.DEVICE_REFRESH));
+    }
+
+    private void tryDelete(File f) throws IOException {
+      Directory d = f.getDirectory();
+      UtilSystem.deleteFile(f.getFIO());
+      FileManager.getInstance().removeFile(f);
+      if (d.getFiles().size() == 0) {
+        emptyDirs.add(f.getDirectory());
+      }
     }
   }
 
@@ -171,7 +208,7 @@ public class DeleteSelectionAction extends SelectionAction {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jajuk.ui.actions.SelectionAction#perform(java.awt.event.ActionEvent)
    */
   @Override
