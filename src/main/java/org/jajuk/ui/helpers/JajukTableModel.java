@@ -22,6 +22,7 @@ package org.jajuk.ui.helpers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -129,6 +130,7 @@ public abstract class JajukTableModel extends DefaultTableModel {
    * Set item at given position.
    */
   public void setItemAt(int iRow, Item item) {
+    Objects.requireNonNull(item, () -> "Element for row " + iRow + " was null");
     oItems[iRow] = item;
   }
 
